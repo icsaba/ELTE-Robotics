@@ -8,6 +8,15 @@
 ## Project
 TODO
 
+## Install
+-  ```bash cp -r ./models/* ~/.gazebo/models/```
+-  ```
+cd ./plugins/velodyne_plugins/build
+cmake ..
+make
+gazebo --verbose ../velodyne.world
+```
+
 ## Models
 Simple vehicle 
 
