@@ -1,24 +1,10 @@
-# Csaba I. Robotics 2018
+# 2018 ELTE Robotika, Csaba Ivancza
 
-## Environment
-- OS: Ubuntu 17
-- App: Gazebo
-- URL: http://gazebosim.org/
+## Log
 
-## Project
-TODO
-
-## Install
--  ```bash cp -r ./models/* ~/.gazebo/models/```
--  ```
-cd ./plugins/velodyne_plugins/build
-cmake ..
-make
-gazebo --verbose ../velodyne.world
-```
-
-## Models
-Simple vehicle 
-
-### Process
-- Doing tutorials
+- 2018.04.09. Gazebo telepitese, elso model kiprobalasa
+- 2018.04.10. Gazebo tutorialok tanulmanyozasa
+- 2018.04.14 - 15. ROS vs Player. felesleges nekunk
+- 2018.04.24 - 25. Gazebo tutorialok, gave up
+- 2018.04.28 - Valtas Morse-ra, sokkal letisztultabb es kevesbe komplikalt, vannak ertelmes peldak
+- 2018.04.30 - Robot elakad a szekben, es neha belat a huto ala...
