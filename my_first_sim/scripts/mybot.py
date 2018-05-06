@@ -11,6 +11,22 @@ class MyBot(object):
         self.robot = simu.robot
         self.simu = simu
 
+        self._last_n_steps = []
+
+    @property
+    def last_n_steps(self):
+        return self._last_n_steps
+
+    @last_n_steps.setter
+    def last_n_steps(self, value):
+        items_len = len(self._last_n_steps)
+
+        if items_len > 10:
+            start = items_len - 10
+            self._last_n_steps = self._last_n_steps[start+1:]
+
+        self._last_n_steps.append(value)
+
     @property
     def robot(self):
         return self._robot
@@ -67,7 +83,7 @@ class MyBot(object):
         return self
 
     def stop(self):
-        print('stopping for a moment...')
+        #print('stopping for a moment...')
         v_w = {'v': 0, 'w': 0}
         self.motion.publish(v_w)
 
@@ -76,6 +92,13 @@ class MyBot(object):
     def turning(self, value):
         print('turning somewhere with value %s...' % value)
         v_w = {'v': 0, 'w': value}
+        self.motion.publish(v_w)
+
+        return self
+
+    def move(self, v, w):
+        #print('moving to somewhere with values (%s / %s)...' % (v, w))
+        v_w = {'v': v, 'w': w}
         self.motion.publish(v_w)
 
         return self
