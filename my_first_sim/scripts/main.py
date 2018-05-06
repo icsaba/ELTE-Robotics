@@ -61,12 +61,12 @@ if __name__ == '__main__':
             middle = middle_sensors[1]
             total_right = right_sensors[len(right_sensors)-1]
 
-            #print(ld_avg, md_avg, rd_avg)
+            print(ld_avg, md_avg, rd_avg)
 
             general_value = (0 - (ld_avg - rd_avg))
 
-            if ld_avg <= laser_window or md_avg <= laser_window or rd_avg <= laser_window:
-                my_bot.slow_down().wait()
+            if ld_avg < laser_window or md_avg < laser_window or rd_avg < laser_window:
+                my_bot.slow_down()
 
             if md_avg < allowed_distance:
 
@@ -98,8 +98,6 @@ if __name__ == '__main__':
                 print('speeding up')
                 my_bot.last_n_steps = turning_value[1]
                 turning_value = (1.5, turning_value[1])
-
-            print(ls)
 
             my_bot.move(*turning_value)
 
