@@ -51,7 +51,10 @@ props = {
     "Visible_arc": True,
     "resolution": 5,
     "scan_window":90,
-    "laser_range": 1.5
+    "laser_range": 1.5,
+    #"layers": 2,
+    #'layer_separation': 5,
+    #'layer_offset': 0.5,
 }
 
 sick.properties(**props)

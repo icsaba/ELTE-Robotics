@@ -32,6 +32,11 @@ def get_sensors_data(range_list):
     return left_sensors, middle_sensors, right_sensors
 
 
+def get_two_sensor_row(range_list):
+    mid = int(len(range_list)/2)
+    return range_list[:mid], range_list[mid:]
+
+
 def get_avg(data):
     return sum(data) / len(data)
 
@@ -54,17 +59,17 @@ def speeding_up_if_possible(my_bot, turning_value):
     return turning_value
 
 
-if __name__ == '__main__':
-
+def main():
     with Morse() as simu:
 
         my_bot = MyBot(simu)
         allowed_distance = 1
         laser_window = 1.5
-        critical_distance = 0.8
+        critical_distance = 0.6
 
         while True:
             range_list = my_bot.get_rangelist()
+            #lower_sensors, upper_sensors = get_two_sensor_row(range_list)
 
             left_sensors, middle_sensors, right_sensors = get_sensors_data(range_list)
 
@@ -83,22 +88,22 @@ if __name__ == '__main__':
             if ld_avg < laser_window or md_avg < laser_window or rd_avg < laser_window:
                 my_bot.slow_down()
 
-                any_of_them_is_zero = (c < critical_distance for c in range_list)
-
                 if md_avg < allowed_distance:
 
                     # there is a trap, try to find a way out
                     if total_left < critical_distance and total_right < critical_distance and middle < critical_distance:
                         my_bot.last_n_steps = -4
                         my_bot.turn_sharp().wait()
-                    elif any(any_of_them_is_zero):
+                    # makes more truble then should be...
+                    elif len(any_of_them_is_zero) > 3:
                         print('stucked...')
                         my_bot.turn_sharp().wait()
                     else:
-                        w = 0 - (total_left - total_right)
-                        print('something in my sight, turning somewhere %s' % w)
-                        my_bot.last_n_steps = w
-                        turning_value = (0.1, w)
+                        pass
+                    w = 0 - (total_left - total_right)
+                    print('something in my sight, turning somewhere %s' % w)
+                    my_bot.last_n_steps = w
+                    turning_value = (0.1, w)
                 else:
                     print('correcting my way')
                     my_bot.last_n_steps = general_value
@@ -110,3 +115,8 @@ if __name__ == '__main__':
             my_bot.move(*turning_value)
 
             simu.sleep(0.2)
+
+
+if __name__ == '__main__':
+
+    main()
